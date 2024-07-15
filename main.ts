@@ -13,9 +13,6 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sp
     game.setGameOverMessage(true, "YOU ALIVED")
     game.gameOver(true)
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorDark0, function (sprite, location) {
-    sprites.destroy(ghost_2)
-})
 sprites.onOverlap(SpriteKind.area2, SpriteKind.Enemy, function (sprite, otherSprite) {
     music.play(music.createSong(hex`00b4000408010100001c00010a006400f401640000040000000000000000000000000005000004180000000400012a04000800012a10001400012a14001800012a`), music.PlaybackMode.UntilDone)
 })
@@ -28,7 +25,6 @@ statusbars.onZero(StatusBarKind.Energy, function (status) {
     game.setGameOverMessage(false, "You died")
     game.gameOver(false)
 })
-let ghost_2: Sprite = null
 game.setDialogCursor(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -127,7 +123,7 @@ let mySprite = sprites.create(img`
 tiles.setCurrentTilemap(tilemap`レベル1`)
 mySprite.setPosition(495, 480)
 scene.cameraFollowSprite(mySprite)
-controller.moveSprite(mySprite, 100, 100)
+controller.moveSprite(mySprite, 50, 50)
 let hit_point = statusbars.create(80, 4, StatusBarKind.Energy)
 hit_point.setLabel("light Power", 1)
 hit_point.positionDirection(CollisionDirection.Top)
@@ -137,16 +133,16 @@ let key_3 = sprites.create(assets.image`myImage`, SpriteKind.key)
 key_1.setPosition(420, 340)
 key_2.setPosition(400, 120)
 key_3.setPosition(600, 340)
-ghost_2 = sprites.create(assets.image`myImage4`, SpriteKind.Enemy)
-ghost_2.setPosition(30, 0)
-ghost_2.follow(mySprite, 40)
 let exit_bloker = sprites.create(assets.image`myImage2`, SpriteKind.exiwt)
 exit_bloker.setPosition(495, 503)
 tiles.setWallAt(tiles.getTileLocation(30, 31), true)
 tiles.setWallAt(tiles.getTileLocation(31, 31), true)
 let ghost_1 = sprites.create(assets.image`myImage4`, SpriteKind.Enemy)
 ghost_1.setPosition(740, 135)
-ghost_1.follow(mySprite, 30)
+ghost_1.follow(mySprite, 20)
+let ghost_2 = sprites.create(assets.image`myImage4`, SpriteKind.Enemy)
+ghost_2.setPosition(20, 80)
+ghost_2.follow(mySprite, 30)
 let ghost_comming_area = sprites.create(img`
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
     1 . . . . . . . . . . . . . . 1 
@@ -321,16 +317,9 @@ mySprite2.setStayInScreen(false)
 mySprite2.changeScale(2, ScaleAnchor.Middle)
 game.onUpdate(function () {
     if (ghost_comming_area.overlapsWith(ghost_1)) {
-        ghost_1.follow(mySprite, 80)
+        ghost_1.follow(mySprite, 60)
     } else {
         ghost_1.follow(mySprite, 20)
-    }
-})
-game.onUpdate(function () {
-    if (mySprite.overlapsWith(key_1)) {
-        music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
-        sprites.destroy(key_1)
-        info.changeScoreBy(1)
     }
 })
 game.onUpdate(function () {
@@ -342,14 +331,21 @@ game.onUpdate(function () {
         info.setScore(0)
     }
 })
-game.onUpdate(function () {
+forever(function () {
+    if (mySprite.overlapsWith(key_1)) {
+        music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
+        sprites.destroy(key_1)
+        info.changeScoreBy(1)
+    }
+})
+forever(function () {
     if (mySprite.overlapsWith(key_2)) {
         music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
         sprites.destroy(key_2)
         info.changeScoreBy(1)
     }
 })
-game.onUpdate(function () {
+forever(function () {
     if (mySprite.overlapsWith(key_3)) {
         music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
         sprites.destroy(key_3)
@@ -358,7 +354,7 @@ game.onUpdate(function () {
 })
 forever(function () {
     mySprite2.setPosition(mySprite.x, mySprite.y)
-    hit_point.value += -0.03
+    hit_point.value += -0.02
 })
 forever(function () {
     ghost_comming_area.setPosition(mySprite.x, mySprite.y)
