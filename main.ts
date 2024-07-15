@@ -4,6 +4,7 @@ namespace SpriteKind {
     export const kage = SpriteKind.create()
     export const key = SpriteKind.create()
     export const exiwt = SpriteKind.create()
+    export const area = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sprite, location) {
     game.setGameOverEffect(true, effects.confetti)
@@ -13,6 +14,9 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sp
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorDark0, function (sprite, location) {
     sprites.destroy(ghost_2)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
+	
 })
 statusbars.onZero(StatusBarKind.Energy, function (status) {
     game.setGameOverMessage(false, "You died")
@@ -151,7 +155,7 @@ let ghost_comming_area = sprites.create(img`
     1 . . . . . . . . . . . . . . 1 
     1 . . . . . . . . . . . . . . 1 
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-    `, SpriteKind.Player)
+    `, SpriteKind.area)
 ghost_comming_area.setScale(4, ScaleAnchor.Middle)
 ghost_comming_area.setStayInScreen(false)
 game.onUpdate(function () {
