@@ -122,6 +122,12 @@ exit_bloker.setPosition(495, 503)
 tiles.setWallAt(tiles.getTileLocation(30, 31), true)
 tiles.setWallAt(tiles.getTileLocation(31, 31), true)
 forever(function () {
+    if (mySprite.overlapsWith(key_1)) {
+        music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
+        sprites.destroy(key_1)
+    }
+})
+forever(function () {
 	
 })
 forever(function () {
