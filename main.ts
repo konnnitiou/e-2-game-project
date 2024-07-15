@@ -1,9 +1,10 @@
 namespace SpriteKind {
     export const kaidan = SpriteKind.create()
+    export const radio = SpriteKind.create()
+    export const kage = SpriteKind.create()
+    export const key = SpriteKind.create()
+    export const exiwt = SpriteKind.create()
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
-    tiles.setCurrentTilemap(tilemap`レベル6`)
-})
 statusbars.onZero(StatusBarKind.Energy, function (status) {
     game.setGameOverMessage(false, "You died")
     game.gameOver(false)
@@ -84,7 +85,7 @@ game.setDialogCursor(img`
     . . . . . . . . 2 8 8 . . . . . 
     . . . . . . . . 8 . . . . . . . 
     `)
-game.showLongText("Be careful of \"SOUND\".", DialogLayout.Center)
+game.showLongText("You must pick up the three \"keys\".", DialogLayout.Center)
 let mySprite = sprites.create(img`
     . . . . . . f f f f . . . . . . 
     . . . . f f e e e e f f . . . . 
@@ -106,12 +107,22 @@ let mySprite = sprites.create(img`
 tiles.setCurrentTilemap(tilemap`レベル1`)
 mySprite.setPosition(495, 480)
 scene.cameraFollowSprite(mySprite)
-controller.moveSprite(mySprite, 50, 50)
+controller.moveSprite(mySprite, 100, 100)
 let hit_point = statusbars.create(80, 4, StatusBarKind.Energy)
 hit_point.setLabel("light Power", 1)
 hit_point.positionDirection(CollisionDirection.Top)
+let key_1 = sprites.create(assets.image`myImage1`, SpriteKind.key)
+let key_2 = sprites.create(assets.image`myImage0`, SpriteKind.key)
+let key_3 = sprites.create(assets.image`myImage`, SpriteKind.key)
+key_1.setPosition(420, 340)
+key_2.setPosition(400, 120)
+key_3.setPosition(600, 340)
+let exit_bloker = sprites.create(assets.image`myImage2`, SpriteKind.exiwt)
+exit_bloker.setPosition(495, 503)
+tiles.setWallAt(tiles.getTileLocation(30, 31), true)
+tiles.setWallAt(tiles.getTileLocation(31, 31), true)
 forever(function () {
-    hit_point.value += -0.03
+	
 })
 forever(function () {
     music.setVolume(50)
