@@ -15,9 +15,6 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sp
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorDark0, function (sprite, location) {
     sprites.destroy(ghost_2)
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-	
-})
 statusbars.onZero(StatusBarKind.Energy, function (status) {
     game.setGameOverMessage(false, "You died")
     game.gameOver(false)
@@ -156,8 +153,15 @@ let ghost_comming_area = sprites.create(img`
     1 . . . . . . . . . . . . . . 1 
     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
     `, SpriteKind.area)
-ghost_comming_area.setScale(4, ScaleAnchor.Middle)
+ghost_comming_area.setScale(3.5, ScaleAnchor.Middle)
 ghost_comming_area.setStayInScreen(false)
+game.onUpdate(function () {
+    if (ghost_comming_area.overlapsWith(ghost_1)) {
+        ghost_1.follow(mySprite, 80)
+    } else {
+        ghost_1.follow(mySprite, 20)
+    }
+})
 game.onUpdate(function () {
     if (info.score() == 3) {
         sprites.destroy(exit_bloker)
