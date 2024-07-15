@@ -19,6 +19,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "myImage2"
     },
+    "image6": {
+        "data": "hwQQABAAAAAAAAAAAAAAAADw/w8AAAAAAB8R8Q8AAADwER8R////Dx/x/xHxux8PH/H/H/G7+w8f8f8R8bv7Dx8RHxHxu/sPHxEREfG7+w8fER8R8bv7D/Dx/xHxu/v/AP//H/G7//EA/////7sf/wDw/xHx+/8AAAD/H/H/AAAAAAD//w8AAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage4"
+    },
     "anim2": {
         "namespace": "myAnimations",
         "id": "anim2",

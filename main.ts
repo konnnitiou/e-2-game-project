@@ -11,10 +11,14 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sp
     game.setGameOverMessage(true, "YOU ALIVED")
     game.gameOver(true)
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorDark0, function (sprite, location) {
+    sprites.destroy(ghost_2)
+})
 statusbars.onZero(StatusBarKind.Energy, function (status) {
     game.setGameOverMessage(false, "You died")
     game.gameOver(false)
 })
+let ghost_2: Sprite = null
 game.setDialogCursor(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -127,6 +131,29 @@ let exit_bloker = sprites.create(assets.image`myImage2`, SpriteKind.exiwt)
 exit_bloker.setPosition(495, 503)
 tiles.setWallAt(tiles.getTileLocation(30, 31), true)
 tiles.setWallAt(tiles.getTileLocation(31, 31), true)
+let ghost_1 = sprites.create(assets.image`myImage4`, SpriteKind.Enemy)
+ghost_1.setPosition(740, 135)
+ghost_1.follow(mySprite, 20)
+let ghost_comming_area = sprites.create(img`
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 . . . . . . . . . . . . . . 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    `, SpriteKind.Player)
+ghost_comming_area.setScale(4, ScaleAnchor.Middle)
+ghost_comming_area.setStayInScreen(false)
 game.onUpdate(function () {
     if (info.score() == 3) {
         sprites.destroy(exit_bloker)
@@ -140,6 +167,9 @@ game.onUpdate(function () {
     if (mySprite.overlapsWith(key_1)) {
         music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
         sprites.destroy(key_1)
+        ghost_2 = sprites.create(assets.image`myImage4`, SpriteKind.Enemy)
+        ghost_2.setPosition(320, 340)
+        ghost_2.follow(mySprite, 40)
         info.changeScoreBy(1)
     }
 })
@@ -156,4 +186,7 @@ game.onUpdate(function () {
         sprites.destroy(key_3)
         info.changeScoreBy(1)
     }
+})
+forever(function () {
+    ghost_comming_area.setPosition(mySprite.x, mySprite.y)
 })
