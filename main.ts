@@ -5,6 +5,12 @@ namespace SpriteKind {
     export const key = SpriteKind.create()
     export const exiwt = SpriteKind.create()
 }
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sprite, location) {
+    game.setGameOverEffect(true, effects.confetti)
+    game.setGameOverPlayable(true, music.melodyPlayable(music.powerUp), false)
+    game.setGameOverMessage(true, "YOU ALIVED")
+    game.gameOver(true)
+})
 statusbars.onZero(StatusBarKind.Energy, function (status) {
     game.setGameOverMessage(false, "You died")
     game.gameOver(false)
@@ -121,16 +127,33 @@ let exit_bloker = sprites.create(assets.image`myImage2`, SpriteKind.exiwt)
 exit_bloker.setPosition(495, 503)
 tiles.setWallAt(tiles.getTileLocation(30, 31), true)
 tiles.setWallAt(tiles.getTileLocation(31, 31), true)
-forever(function () {
+game.onUpdate(function () {
+    if (info.score() == 3) {
+        sprites.destroy(exit_bloker)
+        tiles.setWallAt(tiles.getTileLocation(30, 31), false)
+        tiles.setWallAt(tiles.getTileLocation(31, 31), false)
+        music.play(music.createSoundEffect(WaveShape.Noise, 1693, 2345, 255, 0, 500, SoundExpressionEffect.Tremolo, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+        info.setScore(0)
+    }
+})
+game.onUpdate(function () {
     if (mySprite.overlapsWith(key_1)) {
         music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
         sprites.destroy(key_1)
+        info.changeScoreBy(1)
     }
 })
-forever(function () {
-	
+game.onUpdate(function () {
+    if (mySprite.overlapsWith(key_2)) {
+        music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
+        sprites.destroy(key_2)
+        info.changeScoreBy(1)
+    }
 })
-forever(function () {
-    music.setVolume(50)
-    music.play(music.createSong(hex`005a000408040105001c000f0a006400f4010a0000040000000000000000000000000000000002960000000c0001240c001400012414001800012418001c0001221c002000012520002c0001242c003400012434003600012436003800012438003c0001273c004000012540004800012450005200012452005400012254005600012a56005800012558005c0001225c006000012560006800012468007000012570007800012778007a0001297a007c0001277c007e0001257e0080000122`), music.PlaybackMode.UntilDone)
+game.onUpdate(function () {
+    if (mySprite.overlapsWith(key_3)) {
+        music.play(music.createSoundEffect(WaveShape.Sine, 1069, 2731, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
+        sprites.destroy(key_3)
+        info.changeScoreBy(1)
+    }
 })
