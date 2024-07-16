@@ -14,6 +14,66 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sp
     game.setGameOverMessage(true, "YOU ALIVED")
     game.gameOver(true)
 })
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.setImage(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . f f f f f f . . . . . 
+        . . . f f e e e e f 2 f . . . . 
+        . . f f e e e e f 2 2 2 f . . . 
+        . . f e e e f f e e e e f . . . 
+        . . f f f f e e 2 2 2 2 e f . . 
+        . . f e 2 2 2 f f f f e 2 f . . 
+        . f f f f f f f e e e f f f . . 
+        . f f e 4 4 e b f 4 4 e e f . . 
+        . f e e 4 d 4 1 f d d e f . . . 
+        . . f e e e e e d d d f . . . . 
+        . . . . f 4 d d e 4 e f . . . . 
+        . . . . f e d d e 2 2 f . . . . 
+        . . . f f f e e f 5 5 f f . . . 
+        . . . f f f f f f f f f f . . . 
+        . . . . f f . . . f f f . . . . 
+        `)
+})
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.setImage(img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . . f e 2 f f f f f f 2 e f . . 
+        . . f f f f e e e e f f f f . . 
+        . f f e f b f 4 4 f b f e f f . 
+        . f e e 4 1 f d d f 1 4 e e f . 
+        . . f e e d d d d d d e e f . . 
+        . . . f e e 4 4 4 4 e e f . . . 
+        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `)
+})
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.setImage(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d e e e e e f . . . 
+        . . . f e 4 e d d 4 f . . . . . 
+        . . . f 2 2 e d d e f . . . . . 
+        . . f f 5 5 f e e f f f . . . . 
+        . . f f f f f f f f f f . . . . 
+        . . . f f f . . . f f . . . . . 
+        `)
+})
 sprites.onOverlap(SpriteKind.area2, SpriteKind.Enemy, function (sprite, otherSprite) {
     music.play(music.createSong(hex`00b4000408010100001c00010a006400f401640000040000000000000000000000000005000004180000000400012a04000800012a10001400012a14001800012a`), music.PlaybackMode.UntilDone)
 })
@@ -66,6 +126,26 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSp
     music.play(music.createSoundEffect(WaveShape.Noise, 5000, 4126, 136, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
     game.setGameOverMessage(false, "YOU DIED")
     game.gameOver(false)
+})
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.setImage(img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f e e e e f f . . . . 
+        . . . f e e e f f e e e f . . . 
+        . . f f f f f 2 2 f f f f f . . 
+        . . f f e 2 e 2 2 e 2 e f f . . 
+        . . f e 2 f 2 f f 2 f 2 e f . . 
+        . . f f f 2 2 e e 2 2 f f f . . 
+        . f f e f 2 f e e f 2 f e f f . 
+        . f e e f f e e e e f e e e f . 
+        . . f e e e e e e e e e e f . . 
+        . . . f e e e e e e e e f . . . 
+        . . e 4 f f f f f f f f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `)
 })
 statusbars.onZero(StatusBarKind.Energy, function (status) {
     game.setGameOverMessage(false, "You died")
