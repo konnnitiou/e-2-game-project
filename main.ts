@@ -6,6 +6,7 @@ namespace SpriteKind {
     export const exiwt = SpriteKind.create()
     export const area = SpriteKind.create()
     export const area2 = SpriteKind.create()
+    export const ensyutu = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sprite, location) {
     game.setGameOverEffect(true, effects.confetti)
@@ -18,6 +19,51 @@ sprites.onOverlap(SpriteKind.area2, SpriteKind.Enemy, function (sprite, otherSpr
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
     music.stopAllSounds()
+    die_animation = sprites.create(img`
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        ................................
+        `, SpriteKind.ensyutu)
+    die_animation.setScale(9, ScaleAnchor.Middle)
+    die_animation.setPosition(mySprite.x, mySprite.y)
+    sprites.destroy(mySprite)
+    animation.runImageAnimation(
+    die_animation,
+    assets.animation`myAnim0`,
+    50,
+    true
+    )
+    music.setVolume(300)
+    music.play(music.createSoundEffect(WaveShape.Noise, 5000, 4126, 136, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
     game.setGameOverMessage(false, "YOU DIED")
     game.gameOver(false)
 })
@@ -25,6 +71,8 @@ statusbars.onZero(StatusBarKind.Energy, function (status) {
     game.setGameOverMessage(false, "You died")
     game.gameOver(false)
 })
+let die_animation: Sprite = null
+let mySprite: Sprite = null
 game.setDialogCursor(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -102,7 +150,7 @@ game.setDialogCursor(img`
     . . . . . . . . 8 . . . . . . . 
     `)
 game.showLongText("You must pick up the three \"keys\".", DialogLayout.Center)
-let mySprite = sprites.create(img`
+mySprite = sprites.create(img`
     . . . . . . f f f f . . . . . . 
     . . . . f f e e e e f f . . . . 
     . . . f e e e f f e e e f . . . 
@@ -123,7 +171,7 @@ let mySprite = sprites.create(img`
 tiles.setCurrentTilemap(tilemap`レベル1`)
 mySprite.setPosition(495, 480)
 scene.cameraFollowSprite(mySprite)
-controller.moveSprite(mySprite, 50, 50)
+controller.moveSprite(mySprite, 60, 60)
 let hit_point = statusbars.create(80, 4, StatusBarKind.Energy)
 hit_point.setLabel("light Power", 1)
 hit_point.positionDirection(CollisionDirection.Top)
@@ -138,7 +186,7 @@ exit_bloker.setPosition(495, 503)
 tiles.setWallAt(tiles.getTileLocation(30, 31), true)
 tiles.setWallAt(tiles.getTileLocation(31, 31), true)
 let ghost_1 = sprites.create(assets.image`myImage4`, SpriteKind.Enemy)
-ghost_1.setPosition(740, 135)
+ghost_1.setPosition(495, 135)
 ghost_1.follow(mySprite, 20)
 let ghost_2 = sprites.create(assets.image`myImage4`, SpriteKind.Enemy)
 ghost_2.setPosition(20, 80)
@@ -315,6 +363,7 @@ let mySprite2 = sprites.create(img`
     `, SpriteKind.kage)
 mySprite2.setStayInScreen(false)
 mySprite2.changeScale(2, ScaleAnchor.Middle)
+game.setGameOverPlayable(false, music.melodyPlayable(music.powerDown), false)
 game.onUpdate(function () {
     if (ghost_comming_area.overlapsWith(ghost_1)) {
         ghost_1.follow(mySprite, 60)
@@ -354,7 +403,7 @@ forever(function () {
 })
 forever(function () {
     mySprite2.setPosition(mySprite.x, mySprite.y)
-    hit_point.value += -0.02
+    hit_point.value += -0.01
 })
 forever(function () {
     ghost_comming_area.setPosition(mySprite.x, mySprite.y)
