@@ -173,7 +173,7 @@ game.setDialogCursor(img`
     . . . . . . . . 2 8 8 . . . . . 
     . . . . . . . . 8 . . . . . . . 
     `)
-game.splash("SOUND ONLY", "製作　e班")
+game.splash("SOUND", "製作　e班")
 game.showLongText("(caution) This game is horror game.", DialogLayout.Center)
 game.setDialogCursor(img`
     . . . . . . . . . . . . . . . . 
