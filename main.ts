@@ -7,6 +7,8 @@ namespace SpriteKind {
     export const area = SpriteKind.create()
     export const area2 = SpriteKind.create()
     export const ensyutu = SpriteKind.create()
+    export const keyserch = SpriteKind.create()
+    export const keysearch = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight0, function (sprite, location) {
     game.setGameOverEffect(true, effects.confetti)
@@ -442,11 +444,11 @@ let mySprite2 = sprites.create(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     `, SpriteKind.kage)
 mySprite2.setStayInScreen(false)
-mySprite2.changeScale(2, ScaleAnchor.Middle)
+mySprite2.changeScale(1.5, ScaleAnchor.Middle)
 game.setGameOverPlayable(false, music.melodyPlayable(music.powerDown), false)
 game.onUpdate(function () {
     if (ghost_comming_area.overlapsWith(ghost_1)) {
-        ghost_1.follow(mySprite, 60)
+        ghost_1.follow(mySprite, 55)
     } else {
         ghost_1.follow(mySprite, 20)
     }
